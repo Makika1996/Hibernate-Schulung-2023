@@ -2,7 +2,7 @@ package jpa.training.shop.domain;
 
 import jakarta.persistence.*;
 
-@Table(name = "BENUTZER")
+@Table(name = "USER")
 @Entity
 public class User {
     @Id
@@ -47,7 +47,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("Benutzer: %s (%s)", username, email);
+        return String.format("User: %s (%s)", username, email);
     }
 
 }

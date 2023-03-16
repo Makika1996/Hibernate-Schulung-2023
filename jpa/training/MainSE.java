@@ -20,7 +20,7 @@ public class MainSE {
         tx.begin();
 
         try {
-            Customer customer = new Customer("Otto", null);
+            Customer customer = new Customer("Otto", "Hansen");
             em.persist(customer);
 
             User u1 = new User("ddevelop", "geheim", "dieter.develop@oio.de");
@@ -40,7 +40,9 @@ public class MainSE {
             customer.setType(CustomerType.PREMIUM);
             em.merge(customer);
 
-            User u = em.getReference(User.class, 3L);
+            System.out.println("vorher");
+            User u = em.getReference(User.class, u3.getId());
+            System.out.println("nachher");
             u.setPassword("geheimer");
 
             em.getTransaction().commit();
