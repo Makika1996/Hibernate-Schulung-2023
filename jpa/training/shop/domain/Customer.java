@@ -39,15 +39,23 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Address> addresses = new HashSet<>();
 
+    @OneToOne
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Order> purchaseOrders = new HashSet<>();
+
     public Customer() {
         super();
         creationDate = LocalDate.now();
     }
 
-    public Customer(String firstName, String lastName) {
+    public Customer(String firstName, String lastName, User user) {
         this();
         this.firstName = firstName;
         this.lastName = lastName;
+        this.user = user;
+        this.user.setCustomer(this);
     }
 
     public String getFirstName() {
@@ -97,5 +105,10 @@ public class Customer {
     public void addToAddresses(Address address) {
         this.addresses.add(address);
         address.setCustomer(this);
+    }
+
+    public void addToPurchaseOrders(Order order) {
+        purchaseOrders.add(order);
+        order.setCustomer(this);
     }
 }

@@ -1,9 +1,12 @@
 package jpa.training.shop.domain;
 
-import jakarta.persistence.*;
 
-@Table(name = "USER")
+import jakarta.persistence.*;
+import org.hibernate.annotations.Proxy;
+
+@Table(name = "BENUTZER")
 @Entity
+@Proxy(lazy = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -11,6 +14,9 @@ public class User {
     private String username;
     private String password;
     private String email;
+
+    @OneToOne(mappedBy = "user")
+    private Customer customer;
 
     public User() {
     }
@@ -45,9 +51,16 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return String.format("User: %s (%s)", username, email);
+    public Customer getCustomer() {
+        return customer;
     }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Benutzer: %s (%s)", username, email);
+    }
 }
